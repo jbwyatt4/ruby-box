@@ -106,6 +106,11 @@ module RubyBox
       upload_file_to_folder(local_path, folder, overwrite)
     end
 
+    def upload_file_by_folder_id(local_path, folder_id, overwrite=true, new_filename)
+      folder = folder_by_id(folder_id)
+      upload_file_to_folder(local_path, folder, overwrite, new_filename)
+    end
+
     def split_path(path)
       path.gsub!(/(^\/)|(\/$)/, '')
       path.split('/')
@@ -138,6 +143,13 @@ module RubyBox
       return unless folder
       ::File.open(local_path, 'rb') do |data|
         folder.upload_file(file_name, data, overwrite)
+      end
+    end
+
+    def upload_file_to_folder(local_path, folder, overwrite, new_filename)
+      return unless folder
+      ::File.open(local_path, 'rb') do |data|
+        folder.upload_file(override_filename, data, new_filename)
       end
     end
 
