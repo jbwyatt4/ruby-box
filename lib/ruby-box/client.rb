@@ -149,7 +149,7 @@ module RubyBox
     def upload_file_to_folder(local_path, folder, overwrite, new_filename)
       return unless folder
       ::File.open(local_path, 'rb') do |data|
-        folder.upload_file(override_filename, data, new_filename)
+        folder.upload_file(new_filename, data, new_filename)
       end
     end
 
